@@ -32,15 +32,15 @@ var shipWithinDays = function (weights, days) {
 
     let ans = -1;
 
-    while (left <= right) {
+    while (left < right) {
         let mid = Math.floor((left + right)/2);
         if (checkCapacity(mid)) {
             ans = mid;
-            right = mid - 1;
+            right = mid;
         }
         else left = mid + 1;
     }
 
-    return ans
+    return left
 
 };
