@@ -11,22 +11,34 @@ var merge = function(nums1, m, nums2, n) {
     let secondPtr = n - 1;
     let writePtr = nums1.length-1;
 
-    while(firstPtr >= 0 && secondPtr >= 0) {
-        if (nums1[firstPtr] < nums2[secondPtr]) {
-            nums1[writePtr] = nums2[secondPtr];
-            secondPtr--;
-        }
-        else {
+    while (secondPtr >= 0) {
+        if (firstPtr >= 0 && nums1[firstPtr] > nums2[secondPtr]) {
             nums1[writePtr] = nums1[firstPtr];
             firstPtr--;
         }
-        writePtr--;
-    }
-
-    while (secondPtr >= 0) {
-        nums1[writePtr] = nums2[secondPtr];
-        secondPtr--
+        else {
+            nums1[writePtr] = nums2[secondPtr];
+            secondPtr--;
+        }
         writePtr--
     }
+
+    // while(firstPtr >= 0 && secondPtr >= 0) {
+    //     if (nums1[firstPtr] < nums2[secondPtr]) {
+    //         nums1[writePtr] = nums2[secondPtr];
+    //         secondPtr--;
+    //     }
+    //     else {
+    //         nums1[writePtr] = nums1[firstPtr];
+    //         firstPtr--;
+    //     }
+    //     writePtr--;
+    // }
+
+    // while (secondPtr >= 0) {
+    //     nums1[writePtr] = nums2[secondPtr];
+    //     secondPtr--
+    //     writePtr--
+    // }
     
 };
