@@ -29,7 +29,7 @@ var threeSum = function (nums) {
                     left++;
                 }
 
-                while (right > 0 && nums[right] === nums[right-1]) {
+                while (right > i + 1 && nums[right] === nums[right-1]) {
                     right--
                 }
 
