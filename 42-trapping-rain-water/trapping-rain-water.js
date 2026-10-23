@@ -4,7 +4,7 @@
  */
 var trap = function(height) {
 
-    if(height.length < 2) return 0
+    // if(height.length < 2) return 0
 
     let rightArr = new Array(height.length).fill(0);
     rightArr[0] = height[0];
