@@ -1,37 +1,37 @@
 var canPartition = function(nums) {
+    let memo = {};
+
     let sum = 0;
 
-    for (const num of nums) {
-        sum += num;
+    for (let num of nums) {
+        sum += num
     }
 
     if (sum % 2 !== 0) return false;
 
-    const targetSum = sum / 2;
-    const memo = Array.from(
-        { length: nums.length },
-        () => new Array(targetSum + 1).fill(-1)
-    );
+    let target = sum/2;
 
-    function combinate(start, remainSum) {
-        // Check invalid and successful states before memo access.
-        if (remainSum === 0) return true;
-        if (remainSum < 0 || start >= nums.length) return false;
+    function dfs(index, target) {
 
-        if (memo[start][remainSum] !== -1) {
-            return memo[start][remainSum] === 1;
+        if (index === nums.length || target < 0) {
+            return false
         }
 
-        for (let i = start; i < nums.length; i++) {
-            if (combinate(i + 1, remainSum - nums[i])) {
-                memo[start][remainSum] = 1;
-                return true;
-            }
+        
+
+        if (target === 0) {
+            return  true
         }
 
-        memo[start][remainSum] = 0;
-        return false;
+        let key = `${index}-${target}`;
+
+        if (key in memo) return memo[key]
+
+        let partition = dfs(index + 1, target - nums[index]) ||  dfs(index + 1, target);
+
+        memo[key] = partition;
+        return memo[key]
     }
 
-    return combinate(0, targetSum);
+    return dfs(0, target);
 };
