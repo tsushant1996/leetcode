@@ -8,35 +8,29 @@ var canPartition = function(nums) {
     if (sum % 2 !== 0) return false;
 
     const targetSum = sum / 2;
-
-    // -1 = not calculated, 0 = false, 1 = true
     const memo = Array.from(
         { length: nums.length },
-        () => new Int8Array(targetSum + 1).fill(-1)
+        () => new Array(targetSum + 1).fill(-1)
     );
 
-    function combinate(index, remainSum) {
+    function combinate(start, remainSum) {
+        // Check invalid and successful states before memo access.
         if (remainSum === 0) return true;
-        if (index === nums.length) return false;
+        if (remainSum < 0 || start >= nums.length) return false;
 
-        if (memo[index][remainSum] !== -1) {
-            return memo[index][remainSum] === 1;
+        if (memo[start][remainSum] !== -1) {
+            return memo[start][remainSum] === 1;
         }
 
-        let possible = false;
-
-        // Choice 1: take nums[index], if it fits.
-        if (nums[index] <= remainSum) {
-            possible = combinate(index + 1, remainSum - nums[index]);
+        for (let i = start; i < nums.length; i++) {
+            if (combinate(i + 1, remainSum - nums[i])) {
+                memo[start][remainSum] = 1;
+                return true;
+            }
         }
 
-        // Choice 2: skip nums[index].
-        if (!possible) {
-            possible = combinate(index + 1, remainSum);
-        }
-
-        memo[index][remainSum] = possible ? 1 : 0;
-        return possible;
+        memo[start][remainSum] = 0;
+        return false;
     }
 
     return combinate(0, targetSum);
