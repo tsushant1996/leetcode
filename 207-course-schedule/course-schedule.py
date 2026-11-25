@@ -49,7 +49,7 @@ class Solution:
             numCourses -= 1    
         
 
-        return True if numCourses == 0 else False
+        return True
 
 
 
